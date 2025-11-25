@@ -25,8 +25,21 @@ to quickly create a Cobra application.`,
 	},
 }
 
+var priority int
+
+var addCmd = &cobra.Command{
+	Use:   "add [task]",
+	Short: "Adds a new task",
+	Args: cobra.ExactArgs(1),
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Printf("Added task %s (Priortiy: %d)\n", args[0], priority)
+	},
+}
+
 func init() {
 	configCmd.AddCommand(createCmd)
+	addCmd.Flags().IntVarP(&priority, "priority", "a", 1, "Task priority (1-5)")
+	configCmd.AddCommand(addCmd)
 
 	// Here you will define your flags and configuration settings.
 
